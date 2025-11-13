@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://full-stack-blog-website-aurora-blog.vercel.app/api',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
