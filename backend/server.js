@@ -26,7 +26,10 @@ connectDB();
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: [
+    "http://localhost:5173",
+    "https://full-stack-blog-website-aurora-blog-theta.vercel.app"
+  ],
   credentials: true
 }));
 app.use(express.json());
