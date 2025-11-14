@@ -41,10 +41,12 @@ router.post('/signup', async (req, res) => {
       const token = generateToken(user._id);
       res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
-        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+        secure: true,       // Render uses HTTPS → MUST be true
+        sameSite: "none",   // REQUIRED for cross-origin cookies
+        path: "/",          // Ensure cookie is accessible everywhere
+        maxAge: 30 * 24 * 60 * 60 * 1000 
       });
+      
 
       res.status(201).json({
         _id: user._id,
@@ -83,12 +85,21 @@ router.post('/login', async (req, res) => {
     }
 
     const token = generateToken(user._id);
+    // res.cookie('token', token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === 'production',
+    //   sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+    //   maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+    // });
+
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
-      maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+      secure: true,       // Render uses HTTPS → MUST be true
+      sameSite: "none",   // REQUIRED for cross-origin cookies
+      path: "/",          // Ensure cookie is accessible everywhere
+      maxAge: 30 * 24 * 60 * 60 * 1000 
     });
+    
 
     res.json({
       _id: user._id,
