@@ -74,7 +74,8 @@ app.post('/api/upload', protect, upload.single('image'), (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
     }
-    res.json({ imageUrl: req.file.path });
+    //res.json({ imageUrl: req.file.path });
+    res.json({ imageUrl: req.file.secure_url });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
