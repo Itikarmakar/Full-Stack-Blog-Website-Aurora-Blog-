@@ -5,6 +5,7 @@ import api from '../axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import toast from 'react-hot-toast';
+import { getImageUrl } from '../utils/getImageUrl';
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -108,7 +109,7 @@ const PostDetails = () => {
           {post.image && (
             <div className="relative h-96">
               <img
-                src={`https://full-stack-blog-website-aurora-blog-1.onrender.com/${post.image}`}
+                src={getImageUrl(post.image)}
                 alt={post.title}
                 className="h-full w-full object-cover"
               />

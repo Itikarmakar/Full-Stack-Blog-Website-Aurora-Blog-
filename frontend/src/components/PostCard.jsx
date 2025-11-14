@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { getImageUrl } from '../utils/getImageUrl';
 
 const PostCard = ({ post }) => {
   return (
@@ -9,7 +10,7 @@ const PostCard = ({ post }) => {
       {post.image && (
         <div className="relative mb-6 h-48 overflow-hidden rounded-2xl">
           <img
-            src={`https://full-stack-blog-website-aurora-blog-1.onrender.com/${post.image}`}
+            src={getImageUrl(post.image)}
             alt={post.title}
             className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
           />

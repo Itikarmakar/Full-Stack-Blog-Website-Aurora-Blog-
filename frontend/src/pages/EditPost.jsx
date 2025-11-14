@@ -6,6 +6,7 @@ import api from '../axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import toast from 'react-hot-toast';
+import { getImageUrl } from '../utils/getImageUrl';
 
 const EditPost = () => {
   const { id } = useParams();
@@ -255,7 +256,7 @@ const EditPost = () => {
                   />
                 ) : existingImage ? (
                   <img
-                    src={existingImage}
+                    src={getImageUrl(existingImage)}
                     alt="Current"
                     className="h-64 w-full object-cover"
                   />
