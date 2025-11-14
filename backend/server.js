@@ -9,6 +9,7 @@ import { protect } from './middleware/authMiddleware.js';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { storage } from './config/cloudinary.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,7 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Multer configuration for image uploads
-const storage = multer.diskStorage({
+/*const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');
   },
@@ -45,9 +46,9 @@ const storage = multer.diskStorage({
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     cb(null, uniqueSuffix + path.extname(file.originalname));
   }
-});
+});*/
 
-const upload = multer({
+/*const upload = multer({
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
   fileFilter: (req, file, cb) => {
@@ -61,7 +62,11 @@ const upload = multer({
       cb(new Error('Only image files are allowed'));
     }
   }
-});
+});*/
+
+
+
+const upload = multer({ storage });
 
 // Upload endpoint (protected)
 app.post('/api/upload', protect, upload.single('image'), (req, res) => {
@@ -69,14 +74,14 @@ app.post('/api/upload', protect, upload.single('image'), (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
     }
-    res.json({ imageUrl: `/uploads/${req.file.filename}` });
+    res.json({ imageUrl: req.file.path });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
 // Serve uploaded images
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+//app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api/auth', authRoutes);

@@ -1,5 +1,10 @@
-export const getImageUrl = (path) => {
-    if (!path) return "";
-    return `https://full-stack-blog-website-aurora-blog-1.onrender.com${path}`;
+export const getImageUrl = (image) => {
+    if (!image) return "";
+  
+    // If Cloudinary already gives a full link, return it
+    if (image.startsWith("http")) return image;
+  
+    // If somehow there is an old /uploads path, handle safely
+    return image;
   };
   
