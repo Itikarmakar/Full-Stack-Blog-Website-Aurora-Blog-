@@ -29,7 +29,8 @@ connectDB();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://full-stack-blog-website-aurora-blog-idb3-hp9aejtfx.vercel.app"
+    "https://full-stack-blog-website-aurora-blog-idb3-hp9aejtfx.vercel.app",
+    "https://full-stack-blog-website-aurora-blog-theta.vercel.app"
   ],
   credentials: true
 }));
