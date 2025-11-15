@@ -48,3 +48,6 @@ A complete full-stack blog application built with MongoDB, Express.js, React.js,
 - Protected routes require authentication
 - Author-only permissions for edit/delete operations
 - CORS configured for secure cross-origin requests
+  
+Click here to view the live project: 
+👉 https://full-stack-blog-website-aurora-blog-theta.vercel.app
