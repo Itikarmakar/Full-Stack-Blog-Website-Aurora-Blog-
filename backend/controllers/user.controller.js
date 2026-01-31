@@ -1,9 +1,5 @@
-import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import { protect } from '../middleware/authMiddleware.js';
-
-const router = express.Router();
 
 // Generate JWT Token
 const generateToken = (id) => {
@@ -12,11 +8,8 @@ const generateToken = (id) => {
   });
 };
 
-// @route   POST /api/auth/signup
-// @desc    Register a new user
-// @access  Public
-router.post('/signup', async (req, res) => {
-  try {
+const signupUser = async(req,res) =>{
+    try {
     const { username, email, password } = req.body;
 
     // Validation
@@ -58,13 +51,10 @@ router.post('/signup', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-// @route   POST /api/auth/login
-// @desc    Login user
-// @access  Public
-router.post('/login', async (req, res) => {
-  try {
+const loginUser = async(req,res) =>{
+    try {
     const { email, password } = req.body;
 
     // Validation
@@ -110,13 +100,22 @@ router.post('/login', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-// @route   GET /api/auth/profile
-// @desc    Get user profile
-// @access  Private
-router.get('/profile', protect, async (req, res) => {
-  try {
+const logoutUser = async(req,res) => {
+    try {
+        res.cookie('token', '', {
+            httpOnly: true,
+            expires: new Date(0)
+        });
+        res.json({ message: 'Logged out successfully' });
+    } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+const userProfile = async(req,res) =>{
+    try {
     res.json({
       _id: req.user._id,
       username: req.user.username,
@@ -125,22 +124,11 @@ router.get('/profile', protect, async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+}
 
-// @route   POST /api/auth/logout
-// @desc    Logout user
-// @access  Private
-router.post('/logout', protect, async (req, res) => {
-  try {
-    res.cookie('token', '', {
-      httpOnly: true,
-      expires: new Date(0)
-    });
-    res.json({ message: 'Logged out successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-export default router;
-
+export {
+    signupUser,
+    loginUser,
+    logoutUser,
+    userProfile
+}

@@ -3,8 +3,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js';
-import authRoutes from './routes/authRoutes.js';
-import postRoutes from './routes/postRoutes.js';
 import { protect } from './middleware/authMiddleware.js';
 import multer from 'multer';
 import path from 'path';
@@ -85,9 +83,13 @@ app.post('/api/upload', protect, upload.single('image'), (req, res) => {
 // Serve uploaded images
 //app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/posts', postRoutes);
+// Routes import
+import userRouter from './routes/user.route.js';
+import postRouter from './routes/post.route.js';
+
+
+app.use('/api/auth', userRouter);
+app.use('/api/posts', postRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {
