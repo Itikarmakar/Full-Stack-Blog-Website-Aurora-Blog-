@@ -1,7 +1,9 @@
 import axios from 'axios';
+import conf from './conf.js';
 
 const api = axios.create({
-  baseURL: 'https://full-stack-blog-website-aurora-blog-1.onrender.com/api',
+  baseURL: conf.apiURL,
+  //baseURL: 'https://full-stack-blog-website-aurora-blog-1.onrender.com/api',
   //baseURL: 'https://full-stack-blog-website-aurora-blog.vercel.app/api',
   withCredentials: true,
   headers: {

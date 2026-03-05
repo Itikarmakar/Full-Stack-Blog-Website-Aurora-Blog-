@@ -23,6 +23,14 @@ const postSchema = new mongoose.Schema({
   image: {
     type: String,
     default: ''
+  },
+  readingTime: {
+    type: Number,
+    default: 1
+  },
+  views: {
+    type: Number,
+    default: 0
   }
 }, {
   timestamps: true

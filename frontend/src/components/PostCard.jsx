@@ -33,7 +33,7 @@ const PostCard = ({ post }) => {
           />
         </div>
         <div className="flex items-center justify-between text-xs text-slate-400">
-          <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+          <span>{post.readingTime} min read • {post.views} views •{" "}{new Date(post.createdAt).toLocaleDateString()}</span>
           <span className="inline-flex items-center gap-2 text-indigo-300 transition group-hover:text-indigo-200">
             Read Post
             <svg
